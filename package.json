@@ -1,0 +1,41 @@
+{
+    "name": "mcp-db-server",
+    "version": "1.0.0",
+    "description": "A MCP server for MySQL database operations",
+    "type": "module",
+    "main": "index.js",
+    "bin": {
+        "mcp-db-server": "./index.js"
+    },
+    "files": [
+        "index.js",
+        "config.js",
+        "LICENSE",
+        "README.md"
+    ],
+    "keywords": [
+        "mcp",
+        "model-context-protocol",
+        "mysql",
+        "database",
+        "vscode"
+    ],
+    "author": "lubo3395",
+    "license": "MIT",
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "~1.25.2",
+        "mysql2": "^3.16.0",
+        "zod": "^4.3.5"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "homepage": "https://github.com/lubo3395/mcp-db-server#readme",
+    "bugs": {
+        "url": "https://github.com/lubo3395/mcp-db-server/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lubo3395/mcp-db-server.git"
+    }
+}
