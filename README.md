@@ -20,6 +20,7 @@ npx mcp-db-server
 ## Features
 
 -   `db.query` - Execute SELECT queries
+-   `db.execute` - Execute write operations (INSERT, UPDATE, DELETE, CREATE, ALTER, DROP, etc.)
 -   `db.tables` - List all database tables
 -   `db.describeTable` - View table structure
 -   `db.health` - Check database connection

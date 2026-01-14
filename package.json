@@ -1,6 +1,6 @@
 {
     "name": "mcp-db-server",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "A MCP server for MySQL database operations",
     "type": "module",
     "main": "index.js",

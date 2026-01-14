@@ -146,6 +146,64 @@ server.registerTool(
     }
 );
 
+// 工具5：执行写操作（INSERT/UPDATE/DELETE/CREATE/ALTER/DROP等）
+server.registerTool(
+    "db.execute",
+    {
+        title: "Execute SQL Statement",
+        description: "Execute SQL write operations: INSERT, UPDATE, DELETE, CREATE TABLE, ALTER TABLE, DROP TABLE, etc.",
+        inputSchema: z.object({
+            sql: z.string().describe("SQL statement to execute"),
+        }),
+    },
+    async ({ sql }) => {
+        const normalizedSql = sql.trim().toLowerCase();
+        
+        // 允许的操作类型
+        const allowedPrefixes = [
+            "insert", "update", "delete",  // DML
+            "create", "alter", "drop", "truncate", "rename"  // DDL
+        ];
+        
+        if (!allowedPrefixes.some(prefix => normalizedSql.startsWith(prefix))) {
+            return {
+                content: [{
+                    type: "text",
+                    text: `Only these operations are allowed: ${allowedPrefixes.join(", ").toUpperCase()}`,
+                }],
+            };
+        }
+        
+        try {
+            const [result] = await pool.query(sql);
+            
+            // 根据操作类型返回不同信息
+            if (normalizedSql.startsWith("insert") || normalizedSql.startsWith("update") || normalizedSql.startsWith("delete")) {
+                return {
+                    content: [{
+                        type: "text",
+                        text: `Success. Affected rows: ${result.affectedRows}`,
+                    }],
+                };
+            } else {
+                return {
+                    content: [{
+                        type: "text",
+                        text: "Success. DDL statement executed.",
+                    }],
+                };
+            }
+        } catch (error) {
+            return {
+                content: [{
+                    type: "text",
+                    text: `SQL Error: ${error.message}`,
+                }],
+            };
+        }
+    }
+);
+
 // 启动时测试数据库连接
 async function testDbConnection() {
     try {
